@@ -11,7 +11,7 @@ describe("ProductCard Component", () => {
     name: "Test Product",
     description: "This is a test product description",
     price: 29.99,
-    imageUrl: "https://via.placeholder.com/150",
+    imageUrl: "https://placehold.co/150",
   };
 
   // Mock function for onAddToCart prop
@@ -34,7 +34,7 @@ describe("ProductCard Component", () => {
     // Check if image is rendered with correct alt text
     const image = screen.getByAltText("Test Product");
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", "https://via.placeholder.com/150");
+    expect(image).toHaveAttribute("src", "https://placehold.co/150");
   });
 
   it("calls onAddToCart when the Add to Cart button is clicked", async () => {
