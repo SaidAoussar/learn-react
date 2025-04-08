@@ -5,13 +5,30 @@ import ProductList from "./components/ProductList";
 import Header from "./components/Header";
 import Toast, { ToastType } from "./components/Toast";
 import { CartItem } from "./types/CartItem";
+import { useFetch } from "./hooks/useFetch";
+
+
+
+const fetchProducts = async (): Promise<Product[]> => {
+  try {
+    const res = await fetch("http://localhost:3000/products");
+    if (!res.ok) {
+      throw new Error('Failed to fetch products');
+    }
+    return await res.json()
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Error(`${error}`);
+  }
+}
 
 
 function App() {
 
-
-  const [products, _] = useState<Product[]>(productData);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const { data: products, isLoading, error } = useFetch<Product[]>("http://localhost:3000/products")
+
+
 
 
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -19,10 +36,6 @@ function App() {
   const [typeToast, setTypeToast] = useState<ToastType>(ToastType.Success);
 
 
-
-  useEffect(() => {
-
-  })
 
 
   useEffect(() => {
@@ -68,10 +81,12 @@ function App() {
   }
 
   return (
-    <main role="main" className="container mx-auto">
+    <main role="main" className="container mx-auto px-4">
       <Toast isVisible={showToast} type={typeToast} message={msgToast} onClose={handleClose} />
       <Header cartCount={getCartCount()} />
-      <ProductList products={products} addToProduct={handleAddToCart} cart={cart} />
+      {error && <div className="error-message text-red-500">{error}</div>}
+      {isLoading && <div className="loading-spinner">Loading...</div>}
+      {!isLoading && !error && <ProductList products={products || []} addToProduct={handleAddToCart} cart={cart} />}
     </main>
   );
 }
