@@ -16,14 +16,14 @@ export  function useFetch<T>(url: string){
           setError("Failed to fetch products");
         }
         const json = await res.json();
-        setData(json);
-        
+        setData(json);       
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
         } else {
           setError("An unknown error occurred");
-        }      }finally{
+        }      
+      } finally{
         setIsLoading(false);
       }
     }

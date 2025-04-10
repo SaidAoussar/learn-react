@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Product } from "../types/Product";
 import { ShoppingCart } from "lucide-react";
+import { CartCallback } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
+import { ToastType } from "./Toast";
 
 
 type productCardProps = {
   product: Product,
-  onAddToCart?: (product: Product) => void,
-  isInCart?: boolean
+  onAddToCart?: (product: Product, callbacks?: CartCallback) => void,
 }
 
 
@@ -14,10 +16,10 @@ const shortDescription = (description: string) => {
   return description.split('.')[0];
 }
 
-const ProductCard: React.FC<productCardProps> = ({ product, onAddToCart, isInCart }) => {
+const ProductCard: React.FC<productCardProps> = ({ product, onAddToCart }) => {
 
   const [showDescription, setShowDescription] = useState<boolean>(false);
-
+  const { showToast } = useToast();
   const toggleDescription = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,11 +29,12 @@ const ProductCard: React.FC<productCardProps> = ({ product, onAddToCart, isInCar
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onAddToCart) {
-      onAddToCart(product)
+      onAddToCart(product, {
+        onSuccess: (msg) => showToast(msg, ToastType.Success)
+      })
     }
 
   }
-
 
   return (<div className="bg-white shadow-md rounded-2xl overflow-hidden p-4 max-w-sm hover:shadow-lg transition cursor-pointer hover:scale-105">
     <img

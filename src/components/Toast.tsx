@@ -33,7 +33,7 @@ const Toast: React.FC<ToastProps> = ({ isVisible = true, type = ToastType.Succes
     <div className={`flex overflow-hidden rounded-lg border-l-4 ${colorMap[type].border} bg-white shadow-lg`}>
       <div className="flex items-center justify-center bg-green-50 p-3">
         <svg className={`h-6 w-6 ${colorMap[type].text}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
         </svg>
       </div>
       <div className="flex-grow px-4 py-3">
@@ -41,7 +41,7 @@ const Toast: React.FC<ToastProps> = ({ isVisible = true, type = ToastType.Succes
           <h3 className="font-medium text-gray-900">{type}</h3>
           <button className="ml-4 text-gray-400 hover:text-gray-500 focus:outline-none" onClick={onClose}>
             <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
